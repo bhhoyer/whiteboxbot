@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-'''crontab runs 8am every Monday. If tomorrow is the second or fourth Tuesday send email with NCS and increment index.txt
+'''crontab runs 8am every Monday. If tomorrow is the second or fourth Tuesday 
+send email with NCS and increment index.txt
 1 8 * * mon /home/pi/WhiteBoxBot/whitebot.py >> /home/pi/WhiteBoxBot/wb.log 2>&1
 '''
 import datetime
@@ -9,10 +10,9 @@ from email.MIMEText import MIMEText
 import smtplib
 import argparse
 import os
-
 from config import *
 
-# Functions
+#creates index.txt if it doesn't exist then increments with rollover at limit
 def fileindex(len):
 	if os.path.isfile('index.txt') == 0:
 		print 'new index file'
