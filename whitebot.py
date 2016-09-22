@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-'''crontab run 
-0 8 * * mon ~/WhiteBoxBot/whitebot.py >> ~/WhiteBoxBot/wb.log
+'''crontab runs 8am every Monday. If tomorrow is the second or fourth Tuesday send email with NCS and increment index.txt
+1 8 * * mon /home/pi/WhiteBoxBot/whitebot.py >> /home/pi/WhiteBoxBot/wb.log 2>&1
 '''
 import datetime
 from email.MIMEMultipart import MIMEMultipart
@@ -40,28 +40,15 @@ args = parser.parse_args()
 if args.c:
 	os.chdir('/home/pi/WhiteBoxBot')
 
-ncslist = ("KE7KMK","KE7KML","KE7KMM","KE7KMN","KE7KMO","PIMC")
-ncsmax = len(ncslist) - 1
 msg = MIMEMultipart()
 if args.e:
-	msg["To"] = '''Ed & Clare Kelm <twopilots@interisland.net>, 
-		Basil Gunn <basil@pacabunga.com>, Jim McCorison <jimmcc@mccorison.com>, 
-		Wayne Rankin <wa6mpg@yahoo.com>, Jim Hooper <jkhooper@rockisland.com>, 
-		Dave Vandaveer <dave@rockisland.com>, Dan Drath <drathmarine@rockisland.com>'''
+	msg["To"] = tolist
 else:
-	msg["To"] = "bhhoyer@gmail.com"
+	msg["To"] = me
 	print 'To List Disabled'
 msg["From"] = "SJACS EC"
-msg["Cc"] = "bhhoyer@icloud.com"
-body = MIMEText('''Good Morning OMs
-
-TEST ONLY White Box Drill Tomorrow
-
-Net Control will post the POD (Plan Of the Day) on 2m JNBBS (and 220 if available)
-
-Please be on Station with the POD in hand by 9:30am,
-White Box Bot
-''')
+msg["Cc"] = me
+body = MIMEText(body)
 msg.attach(body)
 
 #Is tomorrow the second or fourth?
