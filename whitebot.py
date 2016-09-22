@@ -62,7 +62,7 @@ if ((7 < wbd < 15) or (21 < wbd < 29)):
 	smtp.login(username,password)
 	smtp.sendmail(msg["From"], msg["To"].split(",") + msg["Cc"].split(","), msg.as_string())
 	smtp.quit()
-	print msg["Subject"]
+	print msg["Subject]
 else:
 	print 'not this time'
 		
